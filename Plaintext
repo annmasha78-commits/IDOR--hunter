@@ -1,0 +1,8 @@
+idor-hunter-pro/
+├── manifest.json              # Manifest V3 (Permissions: webRequest, storage, scripting)
+├── background.js              # Service Worker (Heuristic IDOR & Telemetry Filter Logic)
+├── config.js                  # Fallback Decrypters & Multi-AI Provider Config
+├── popup.html                 # Cyberpunk Styled Multi-Tab Interface
+└── assets/
+    ├── css/style.css          # UI Layout & Dark Security Theme
+    └── js/popup.js            # Controller (Scanner, Auto-Verify & AI Requests)
