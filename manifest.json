@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "IDOR Hunter Pro - AI Powered",
+  "version": "1.0.0",
+  "description": "Advanced Automated and Manual IDOR Vulnerability Assessment Tool. Features AI-powered endpoint analysis.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "webRequest",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "IDOR Hunter Pro"
+  }
+}

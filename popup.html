@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDOR Hunter Pro</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-area">
+            <div class="pulse-ring"></div>
+            <h1>IDOR <span class="highlight">HUNTER PRO</span></h1>
+        </div>
+        <div class="header-right">
+            <span class="counter-badge" id="totalCount">0 Endpoints</span>
+            <div class="status-badge" id="aiStatus">AI Ready</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="dashboard">🎯 Scanner</button>
+        <button class="tab-btn" data-tab="manual">🔬 Verify</button>
+        <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content-area">
+
+        <!-- Scanner Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="section-header">
+                <div class="filter-row">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="high">🔴 High</button>
+                    <button class="filter-btn" data-filter="medium">🟠 Medium</button>
+                    <button class="filter-btn" data-filter="low">🟡 Low</button>
+                    <button class="filter-btn" data-filter="info">🔵 Info</button>
+                </div>
+                <div class="action-row">
+                    <button id="scanPageBtn" class="btn btn-glow btn-sm">⚡ Scan Page</button>
+                    <button id="downloadFindingsBtn" class="btn btn-primary btn-sm">↓ Export</button>
+                    <button id="clearFindingsBtn" class="btn btn-danger btn-sm">✕ Clear</button>
+                </div>
+            </div>
+            <div class="findings-list" id="findingsList">
+                <div class="empty-state">
+                    <div class="empty-icon">🔍</div>
+                    <div>Browse any website — endpoints will appear here automatically</div>
+                    <div class="empty-sub">Or click <strong>⚡ Scan Page</strong> to scan current page</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Verify Tab -->
+        <section id="manual" class="tab-content">
+
+            <!-- Endpoint Input -->
+            <div class="verify-box">
+                <div class="form-group">
+                    <label>Target Endpoint URL</label>
+                    <input type="text" id="manualUrl" class="cyber-input" placeholder="https://example.com/api/user?id=123">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1">
+                        <label>Method</label>
+                        <select id="manualMethod" class="cyber-select">
+                            <option>GET</option><option>POST</option>
+                            <option>PUT</option><option>DELETE</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:2">
+                        <label>Modified ID / Payload (optional)</label>
+                        <input type="text" id="modifiedId" class="cyber-input" placeholder="e.g., 124 or admin">
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="testOriginalBtn" class="btn btn-primary">▶ Send Original</button>
+                    <button id="autoVerifyBtn" class="btn btn-glow">⚡ Auto Exploit &amp; Verify</button>
+                </div>
+            </div>
+
+            <!-- Verdict Panel -->
+            <div class="verdict-panel hidden" id="verdictPanel">
+                <div class="verdict-header" id="verdictHeader">
+                    <span id="verdictIcon">🔍</span>
+                    <span id="verdictTitle">Testing...</span>
+                    <span class="severity-badge" id="verdictSeverity"></span>
+                </div>
+                <div class="verdict-body">
+                    <div class="evidence-grid" id="evidenceGrid"></div>
+                    <div class="why-matters" id="whyMatters"></div>
+                    <div class="diff-section" id="diffSection"></div>
+                </div>
+            </div>
+
+            <!-- Raw Response -->
+            <div class="response-area">
+                <div class="response-header">
+                    <span>Response</span>
+                    <span id="responseStatus" class="response-status"></span>
+                </div>
+                <pre id="responseOutput" class="code-block">Response will appear here...</pre>
+            </div>
+
+            <!-- AI Assessment -->
+            <div class="ai-assessment-box">
+                <div class="ai-header">
+                    <h3>🤖 AI Assessment</h3>
+                    <button id="analyzeAiBtn" class="btn btn-sm btn-glow">Analyze with AI</button>
+                </div>
+                <div id="aiAssessmentResult" class="ai-result">Click "Analyze with AI" to get expert IDOR analysis and remediation steps.</div>
+            </div>
+        </section>
+
+        <!-- Settings Tab -->
+        <section id="settings" class="tab-content">
+            <div class="settings-card">
+                <h3>🔐 API Configuration</h3>
+                <p class="settings-desc">Enter your API key below. Keys are stored securely in your local browser storage — never shared or uploaded anywhere.</p>
+
+                <div class="security-notice">
+                    🛡️ Your keys are stored only in <strong>chrome.storage.local</strong> on your device. The extension file contains no keys.
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                    <label>AI Provider</label>
+                    <select id="aiProvider" class="cyber-select">
+                        <option value="gemini">Google Gemini (Recommended)</option>
+                        <option value="groq">Groq (Fast)</option>
+                        <option value="openrouter">OpenRouter (Free)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>API Key <span id="keyStatus" class="key-status-badge key-missing">Not Set</span></label>
+                    <input type="password" id="apiKeyInput" class="cyber-input" placeholder="Paste your API key here...">
+                    <div class="key-links" id="keyLinks">
+                        <a id="getKeyLink" href="#" target="_blank" class="key-link">Get API Key →</a>
+                    </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button id="saveSettingsBtn" class="btn btn-primary" style="flex:1;">💾 Save Key</button>
+                    <button id="clearKeyBtn" class="btn btn-danger" style="flex:0 0 auto;">✕ Clear</button>
+                </div>
+            </div>
+            <div class="settings-card mt-3">
+                <h3>How It Works</h3>
+                <div class="how-it-works">
+                    <div class="step"><span class="step-num">1</span><span>Browse target site — background scanner captures API calls</span></div>
+                    <div class="step"><span class="step-num">2</span><span>Endpoints are scored and categorized (High/Medium/Low/Info)</span></div>
+                    <div class="step"><span class="step-num">3</span><span>Click any endpoint → go to Verify tab to test it</span></div>
+                    <div class="step"><span class="step-num">4</span><span>Auto Exploit sends original + modified request, diffs responses</span></div>
+                    <div class="step"><span class="step-num">5</span><span>AI generates remediation steps for confirmed vulnerabilities</span></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+<script src="config.js"></script>
+<script src="assets/js/popup.js"></script>
+</body>
+</html>
