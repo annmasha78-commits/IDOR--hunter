@@ -7,9 +7,9 @@ const IDOR_CONFIG = {
     // Double-obfuscated keys: reverse(base64(key))
     // Excluded from standard plaintext scanners. Safely decrypted in runtime.
     fallbacks: {
-        gemini: "ZJjd190U6d2V6FEVWFnch5ERwMmUoFVSWpVVs1WNCRWQ5NVY6lUQ",
-        groq: "=ITcNBTMpFFcCBXVrJDMzl0QNdlSsJ1awklRzIWekd0VnFkaKdUSylnTvVFNt9kW0g3UWJ3XrN3Z",
-        openrouter: "==wYlRGN2I2YkljZ0E2Y2ETOldDN5QWY1UGN5QGNlNmM0MmZwEGMkNWO3Q2N0gDMhljY1QGO2UzNzIGOwkzM1EDOtEjdtI3bts2c"
+        gemini: ( "GEMINI_API_KEY_HERE").
+        groq: "= ( "grok_API_KEY_HERE").
+        openrouter: ( "openrouter_API_KEY_HERE").
     },
     providers: {
         gemini: {
